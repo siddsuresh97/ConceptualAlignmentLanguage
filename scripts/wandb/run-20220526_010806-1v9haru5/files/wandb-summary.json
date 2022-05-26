@@ -1,1 +1,0 @@
-{"train_img_loss": 0.1599966215749159, "train_label_loss": 0.0006534205000878127, "val_img_loss": 0.15937748877331614, "val_label_loss": 0.0006194503657752648, "train_losses": 0.1606500415620229, "val_losses": 0.15999693935737014, "train_accuracy": 1.0, "val_accuracy": 1.0, "_timestamp": 1653545607, "_runtime": 321, "_step": 14}
