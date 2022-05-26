@@ -5,6 +5,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 
+
 class CustomLoss(nn.Module):
         def __init__(self):
             super().__init__()
@@ -102,7 +103,7 @@ class Decoder(nn.Module):
         img = torch.sigmoid(img_features)
         label = self.decoder_labels_lin(label_features)
        
-        label = F.softmax(label,dim=1)
+        #label = F.softmax(label,dim=1)
         
         # x = self.decoder_lin(x)
     
@@ -150,7 +151,7 @@ class ConvAutoencoder(nn.Module):
                                                                 label_batch, 
                                                                 pred_label)
                 total += label_batch.size(0)
-                correct += (torch.argmax(pred_label, dim = 1) == torch.argmax(label_batch, dim = 1)).sum().item()
+                correct += (torch.argmax(F.softmax(pred_label, dim=1), dim = 1) == torch.argmax(label_batch, dim = 1)).sum().item()
                 test_img_loss.append(img_loss.item())
                 test_label_loss.append(label_loss.item())
                 total_test_loss.append(total_loss.item())
@@ -205,7 +206,7 @@ class ConvAutoencoder(nn.Module):
             train_label_loss.append(label_loss.item())
             train_loss.append(total_loss.item())
             total += label_batch.size(0)
-            correct += (torch.argmax(pred_label, dim = 1) == torch.argmax(label_batch, dim = 1)).sum().item()
+            correct += (torch.argmax(F.softmax(pred_label, dim=1), dim = 1) == torch.argmax(label_batch, dim = 1)).sum().item()
         train_img_loss = sum(train_img_loss)/len(train_img_loss)
         train_label_loss = sum(train_label_loss)/len(train_label_loss)
         train_loss = sum(train_loss)/len(train_loss)
@@ -213,7 +214,7 @@ class ConvAutoencoder(nn.Module):
         return train_img_loss, train_label_loss, train_loss, train_accuracy
 
     def training_loop(self, train_data, test_data,train_mode,
-                      epochs, optimizer):
+                      epochs, optimizer, wandb_run):
         train_losses = []
         val_losses = []
         train_img_losses = []
@@ -234,7 +235,7 @@ class ConvAutoencoder(nn.Module):
           val_label_losses.append(val_label_loss)
           train_accuracies.append(train_accuracy)
           val_accuracies.append(val_accuracy)
-          wandb.log({"train_img_loss": train_img_loss, 
+          wandb_run.log({"train_img_loss": train_img_loss, 
             "train_label_loss":train_label_loss, 
             "val_img_loss":val_img_loss, 
             "val_label_loss":val_label_loss, 

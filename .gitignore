@@ -1,1 +1,6 @@
-data/3dshapes
+/data/
+
+.DS_Store
+
+*.h5
+*.npy
