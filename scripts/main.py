@@ -1,7 +1,6 @@
 import argparse, os
 import torch
 from src.data import shapes3d
-from src.models import ConvAutoencoder
 from src import training
 
 DEFAULT_DIR = os.path.join(os.path.abspath(os.getcwd()), '../')
@@ -45,14 +44,10 @@ def main():
 
     if args.train_val_create == "T":
         shapes3d.create_train_val_data(dataset_dir = args.dataset_download_dir, data_dir = os.path.join(DEFAULT_DIR, 'data'))
-    if args.model == 'ConvAutoencoder':
-        model = ConvAutoencoder.ConvAutoencoder(args.latent_dims, args.num_classes, args.device).to(args.device) # GPU)
-    else:
-        print('model name invalid')
-
     if args.train == "T":
         training.train(args.model_save_dir, args.num_models, args.epochs, args.num_classes, args.batch_size,
-             args.lr, args.latent_dims, model, os.path.join(DEFAULT_DIR, 'data'))
+             args.lr, args.latent_dims, args.model, args.device, 
+             os.path.join(DEFAULT_DIR, 'data'))
     else:
         print('Did not train any model. If you want to train models, specify --train flag as "T" ')
 

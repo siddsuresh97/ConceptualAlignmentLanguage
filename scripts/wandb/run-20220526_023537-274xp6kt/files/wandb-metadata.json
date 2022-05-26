@@ -1,0 +1,21 @@
+{
+    "os": "macOS-12.2-arm64-arm-64bit",
+    "python": "3.9.12",
+    "heartbeatAt": "2022-05-26T07:35:42.622183",
+    "startedAt": "2022-05-26T07:35:37.501945",
+    "docker": null,
+    "cpu_count": 8,
+    "cuda": null,
+    "args": null,
+    "state": "running",
+    "program": "<python with no main file>",
+    "git": {
+        "remote": "https://github.com/siddsuresh97/ConceptualAlignmentLanguage",
+        "commit": "8f32f9eb25f3a7f7ae6ef49eef5dd95f67f10dc2"
+    },
+    "email": "sidd.suresh97@gmail.com",
+    "root": "/Users/siddharthsuresh/Projects/Wisconsin/ConceptualAlignmentLanguage",
+    "host": "Siddharths-MacBook-Pro.local",
+    "username": "siddharthsuresh",
+    "executable": "/Users/siddharthsuresh/miniforge3/envs/pytorch_env/bin/python"
+}
