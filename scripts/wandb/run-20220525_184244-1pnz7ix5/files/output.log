@@ -1,0 +1,11 @@
+
+[34m[1mwandb[39m[22m: [33mWARNING[39m Calling wandb.run.save without any arguments is deprecated.Changes to attributes are automatically persisted.
+  0%|                                                                                                                       | 0/3 [00:04<?, ?it/s]
+Traceback (most recent call last):
+  File "/Users/siddharthsuresh/Projects/Wisconsin/ConceptualAlignmentLanguage/scripts/main.py", line 62, in <module>
+    main()
+  File "/Users/siddharthsuresh/Projects/Wisconsin/ConceptualAlignmentLanguage/scripts/main.py", line 55, in main
+    training.train(args.model_save_dir, args.num_models, args.epochs, args.num_classes, args.batch_size,
+  File "/Users/siddharthsuresh/Projects/Wisconsin/ConceptualAlignmentLanguage/src/training.py", line 57, in train
+    optimizer = torch.optim.Adam(model.parameters(), lr=lr, weight_decay=1e-05)
+AttributeError: 'int' object has no attribute 'parameters'

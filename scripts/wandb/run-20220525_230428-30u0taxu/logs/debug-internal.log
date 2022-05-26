@@ -1,0 +1,95 @@
+2022-05-25 23:04:28,784 INFO    MainThread:60343 [internal.py:wandb_internal():90] W&B internal server running at pid: 60343, started at: 2022-05-25 23:04:28.784038
+2022-05-25 23:04:28,784 INFO    WriterThread:60343 [datastore.py:open_for_write():75] open: /Users/siddharthsuresh/Projects/Wisconsin/ConceptualAlignmentLanguage/scripts/wandb/run-20220525_230428-30u0taxu/run-30u0taxu.wandb
+2022-05-25 23:04:28,785 DEBUG   SenderThread:60343 [sender.py:send():232] send: header
+2022-05-25 23:04:28,785 DEBUG   SenderThread:60343 [sender.py:send():232] send: run
+2022-05-25 23:04:28,967 DEBUG   HandlerThread:60343 [handler.py:handle_request():141] handle_request: check_version
+2022-05-25 23:04:28,971 INFO    SenderThread:60343 [dir_watcher.py:__init__():197] watching files in: /Users/siddharthsuresh/Projects/Wisconsin/ConceptualAlignmentLanguage/scripts/wandb/run-20220525_230428-30u0taxu/files
+2022-05-25 23:04:28,971 INFO    SenderThread:60343 [sender.py:_start_run_threads():811] run started: 30u0taxu with start time 1653537868
+2022-05-25 23:04:28,971 DEBUG   SenderThread:60343 [sender.py:send():232] send: summary
+2022-05-25 23:04:28,971 INFO    SenderThread:60343 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-25 23:04:28,972 DEBUG   SenderThread:60343 [sender.py:send_request():246] send_request: check_version
+2022-05-25 23:04:29,160 DEBUG   HandlerThread:60343 [handler.py:handle_request():141] handle_request: run_start
+2022-05-25 23:04:29,160 DEBUG   HandlerThread:60343 [meta.py:__init__():35] meta init
+2022-05-25 23:04:29,160 DEBUG   HandlerThread:60343 [meta.py:__init__():49] meta init done
+2022-05-25 23:04:29,160 DEBUG   HandlerThread:60343 [meta.py:probe():209] probe
+2022-05-25 23:04:29,164 DEBUG   HandlerThread:60343 [meta.py:_setup_git():199] setup git
+2022-05-25 23:04:29,189 DEBUG   HandlerThread:60343 [meta.py:_setup_git():206] setup git done
+2022-05-25 23:04:29,189 DEBUG   HandlerThread:60343 [meta.py:_save_pip():53] save pip
+2022-05-25 23:04:29,190 DEBUG   HandlerThread:60343 [meta.py:_save_pip():67] save pip done
+2022-05-25 23:04:29,190 DEBUG   HandlerThread:60343 [meta.py:_save_conda():74] save conda
+2022-05-25 23:04:29,973 INFO    Thread-7  :60343 [dir_watcher.py:_on_file_created():244] file/dir created: /Users/siddharthsuresh/Projects/Wisconsin/ConceptualAlignmentLanguage/scripts/wandb/run-20220525_230428-30u0taxu/files/wandb-summary.json
+2022-05-25 23:04:29,973 INFO    Thread-7  :60343 [dir_watcher.py:_on_file_created():244] file/dir created: /Users/siddharthsuresh/Projects/Wisconsin/ConceptualAlignmentLanguage/scripts/wandb/run-20220525_230428-30u0taxu/files/requirements.txt
+2022-05-25 23:04:29,973 INFO    Thread-7  :60343 [dir_watcher.py:_on_file_created():244] file/dir created: /Users/siddharthsuresh/Projects/Wisconsin/ConceptualAlignmentLanguage/scripts/wandb/run-20220525_230428-30u0taxu/files/conda-environment.yaml
+2022-05-25 23:04:30,426 DEBUG   HandlerThread:60343 [meta.py:_save_conda():84] save conda done
+2022-05-25 23:04:30,426 DEBUG   HandlerThread:60343 [meta.py:probe():247] probe done
+2022-05-25 23:04:30,429 DEBUG   SenderThread:60343 [sender.py:send():232] send: telemetry
+2022-05-25 23:04:30,429 DEBUG   SenderThread:60343 [sender.py:send():232] send: files
+2022-05-25 23:04:30,429 INFO    SenderThread:60343 [sender.py:_save_file():948] saving file wandb-metadata.json with policy now
+2022-05-25 23:04:30,431 DEBUG   HandlerThread:60343 [handler.py:handle_request():141] handle_request: stop_status
+2022-05-25 23:04:30,431 DEBUG   SenderThread:60343 [sender.py:send_request():246] send_request: stop_status
+2022-05-25 23:04:30,977 INFO    Thread-11 :60343 [upload_job.py:push():132] Uploaded file /var/folders/qt/rt9bv7zs62b05gjym3zzqgyw0000gn/T/tmphnadsqa7wandb/3q8shm4e-wandb-metadata.json
+2022-05-25 23:04:30,988 INFO    Thread-7  :60343 [dir_watcher.py:_on_file_modified():257] file/dir modified: /Users/siddharthsuresh/Projects/Wisconsin/ConceptualAlignmentLanguage/scripts/wandb/run-20220525_230428-30u0taxu/files/conda-environment.yaml
+2022-05-25 23:04:30,992 INFO    Thread-7  :60343 [dir_watcher.py:_on_file_created():244] file/dir created: /Users/siddharthsuresh/Projects/Wisconsin/ConceptualAlignmentLanguage/scripts/wandb/run-20220525_230428-30u0taxu/files/output.log
+2022-05-25 23:04:30,993 INFO    Thread-7  :60343 [dir_watcher.py:_on_file_created():244] file/dir created: /Users/siddharthsuresh/Projects/Wisconsin/ConceptualAlignmentLanguage/scripts/wandb/run-20220525_230428-30u0taxu/files/wandb-metadata.json
+2022-05-25 23:04:32,997 INFO    Thread-7  :60343 [dir_watcher.py:_on_file_modified():257] file/dir modified: /Users/siddharthsuresh/Projects/Wisconsin/ConceptualAlignmentLanguage/scripts/wandb/run-20220525_230428-30u0taxu/files/output.log
+2022-05-25 23:04:34,198 DEBUG   SenderThread:60343 [sender.py:send():232] send: telemetry
+2022-05-25 23:04:34,198 DEBUG   SenderThread:60343 [sender.py:send():232] send: telemetry
+2022-05-25 23:04:34,198 DEBUG   SenderThread:60343 [sender.py:send():232] send: run
+2022-05-25 23:04:34,376 INFO    SenderThread:60343 [sender.py:send_run():707] updated run: 30u0taxu
+2022-05-25 23:04:34,376 DEBUG   SenderThread:60343 [sender.py:send():232] send: telemetry
+2022-05-25 23:04:35,003 INFO    Thread-7  :60343 [dir_watcher.py:_on_file_modified():257] file/dir modified: /Users/siddharthsuresh/Projects/Wisconsin/ConceptualAlignmentLanguage/scripts/wandb/run-20220525_230428-30u0taxu/files/config.yaml
+2022-05-25 23:04:35,004 INFO    Thread-7  :60343 [dir_watcher.py:_on_file_modified():257] file/dir modified: /Users/siddharthsuresh/Projects/Wisconsin/ConceptualAlignmentLanguage/scripts/wandb/run-20220525_230428-30u0taxu/files/output.log
+2022-05-25 23:04:49,204 DEBUG   HandlerThread:60343 [handler.py:handle_request():141] handle_request: stop_status
+2022-05-25 23:04:49,205 DEBUG   SenderThread:60343 [sender.py:send_request():246] send_request: stop_status
+2022-05-25 23:05:00,108 INFO    Thread-7  :60343 [dir_watcher.py:_on_file_modified():257] file/dir modified: /Users/siddharthsuresh/Projects/Wisconsin/ConceptualAlignmentLanguage/scripts/wandb/run-20220525_230428-30u0taxu/files/config.yaml
+2022-05-25 23:05:00,528 DEBUG   HandlerThread:60343 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-25 23:05:00,529 DEBUG   SenderThread:60343 [sender.py:send():232] send: history
+2022-05-25 23:05:00,529 DEBUG   SenderThread:60343 [sender.py:send():232] send: summary
+2022-05-25 23:05:00,530 INFO    SenderThread:60343 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-25 23:05:01,109 INFO    Thread-7  :60343 [dir_watcher.py:_on_file_modified():257] file/dir modified: /Users/siddharthsuresh/Projects/Wisconsin/ConceptualAlignmentLanguage/scripts/wandb/run-20220525_230428-30u0taxu/files/wandb-summary.json
+2022-05-25 23:05:03,118 INFO    Thread-7  :60343 [dir_watcher.py:_on_file_modified():257] file/dir modified: /Users/siddharthsuresh/Projects/Wisconsin/ConceptualAlignmentLanguage/scripts/wandb/run-20220525_230428-30u0taxu/files/output.log
+2022-05-25 23:05:04,365 DEBUG   HandlerThread:60343 [handler.py:handle_request():141] handle_request: stop_status
+2022-05-25 23:05:04,365 DEBUG   SenderThread:60343 [sender.py:send_request():246] send_request: stop_status
+2022-05-25 23:05:09,865 DEBUG   SenderThread:60343 [sender.py:send():232] send: stats
+2022-05-25 23:05:19,526 DEBUG   HandlerThread:60343 [handler.py:handle_request():141] handle_request: stop_status
+2022-05-25 23:05:19,526 DEBUG   SenderThread:60343 [sender.py:send_request():246] send_request: stop_status
+2022-05-25 23:05:25,583 DEBUG   HandlerThread:60343 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-25 23:05:25,584 DEBUG   SenderThread:60343 [sender.py:send():232] send: history
+2022-05-25 23:05:25,584 DEBUG   SenderThread:60343 [sender.py:send():232] send: summary
+2022-05-25 23:05:25,586 INFO    SenderThread:60343 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-25 23:05:26,214 INFO    Thread-7  :60343 [dir_watcher.py:_on_file_modified():257] file/dir modified: /Users/siddharthsuresh/Projects/Wisconsin/ConceptualAlignmentLanguage/scripts/wandb/run-20220525_230428-30u0taxu/files/wandb-summary.json
+2022-05-25 23:05:27,215 INFO    Thread-7  :60343 [dir_watcher.py:_on_file_modified():257] file/dir modified: /Users/siddharthsuresh/Projects/Wisconsin/ConceptualAlignmentLanguage/scripts/wandb/run-20220525_230428-30u0taxu/files/output.log
+2022-05-25 23:05:34,686 DEBUG   HandlerThread:60343 [handler.py:handle_request():141] handle_request: stop_status
+2022-05-25 23:05:34,686 DEBUG   SenderThread:60343 [sender.py:send_request():246] send_request: stop_status
+2022-05-25 23:05:47,604 DEBUG   HandlerThread:60343 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-25 23:05:47,605 DEBUG   SenderThread:60343 [sender.py:send():232] send: history
+2022-05-25 23:05:47,605 DEBUG   SenderThread:60343 [sender.py:send():232] send: summary
+2022-05-25 23:05:47,606 INFO    SenderThread:60343 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-25 23:05:48,311 INFO    Thread-7  :60343 [dir_watcher.py:_on_file_modified():257] file/dir modified: /Users/siddharthsuresh/Projects/Wisconsin/ConceptualAlignmentLanguage/scripts/wandb/run-20220525_230428-30u0taxu/files/wandb-summary.json
+2022-05-25 23:05:49,312 INFO    Thread-7  :60343 [dir_watcher.py:_on_file_modified():257] file/dir modified: /Users/siddharthsuresh/Projects/Wisconsin/ConceptualAlignmentLanguage/scripts/wandb/run-20220525_230428-30u0taxu/files/output.log
+2022-05-25 23:05:49,848 DEBUG   HandlerThread:60343 [handler.py:handle_request():141] handle_request: stop_status
+2022-05-25 23:05:49,849 DEBUG   SenderThread:60343 [sender.py:send_request():246] send_request: stop_status
+2022-05-25 23:05:51,450 DEBUG   SenderThread:60343 [sender.py:send():232] send: stats
+2022-05-25 23:06:05,015 DEBUG   HandlerThread:60343 [handler.py:handle_request():141] handle_request: stop_status
+2022-05-25 23:06:05,015 DEBUG   SenderThread:60343 [sender.py:send_request():246] send_request: stop_status
+2022-05-25 23:06:17,223 DEBUG   HandlerThread:60343 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-25 23:06:17,238 DEBUG   SenderThread:60343 [sender.py:send():232] send: history
+2022-05-25 23:06:17,239 DEBUG   SenderThread:60343 [sender.py:send():232] send: summary
+2022-05-25 23:06:17,239 INFO    SenderThread:60343 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-25 23:06:17,446 INFO    Thread-7  :60343 [dir_watcher.py:_on_file_modified():257] file/dir modified: /Users/siddharthsuresh/Projects/Wisconsin/ConceptualAlignmentLanguage/scripts/wandb/run-20220525_230428-30u0taxu/files/wandb-summary.json
+2022-05-25 23:06:19,455 INFO    Thread-7  :60343 [dir_watcher.py:_on_file_modified():257] file/dir modified: /Users/siddharthsuresh/Projects/Wisconsin/ConceptualAlignmentLanguage/scripts/wandb/run-20220525_230428-30u0taxu/files/output.log
+2022-05-25 23:06:20,182 DEBUG   HandlerThread:60343 [handler.py:handle_request():141] handle_request: stop_status
+2022-05-25 23:06:20,182 DEBUG   SenderThread:60343 [sender.py:send_request():246] send_request: stop_status
+2022-05-25 23:06:34,355 DEBUG   SenderThread:60343 [sender.py:send():232] send: stats
+2022-05-25 23:06:35,366 DEBUG   HandlerThread:60343 [handler.py:handle_request():141] handle_request: stop_status
+2022-05-25 23:06:35,370 DEBUG   SenderThread:60343 [sender.py:send_request():246] send_request: stop_status
+2022-05-25 23:06:42,992 DEBUG   HandlerThread:60343 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-25 23:06:42,992 DEBUG   SenderThread:60343 [sender.py:send():232] send: history
+2022-05-25 23:06:42,993 DEBUG   SenderThread:60343 [sender.py:send():232] send: summary
+2022-05-25 23:06:42,994 INFO    SenderThread:60343 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-25 23:06:43,563 INFO    Thread-7  :60343 [dir_watcher.py:_on_file_modified():257] file/dir modified: /Users/siddharthsuresh/Projects/Wisconsin/ConceptualAlignmentLanguage/scripts/wandb/run-20220525_230428-30u0taxu/files/wandb-summary.json
+2022-05-25 23:06:45,569 INFO    Thread-7  :60343 [dir_watcher.py:_on_file_modified():257] file/dir modified: /Users/siddharthsuresh/Projects/Wisconsin/ConceptualAlignmentLanguage/scripts/wandb/run-20220525_230428-30u0taxu/files/output.log
+2022-05-25 23:06:50,527 DEBUG   HandlerThread:60343 [handler.py:handle_request():141] handle_request: stop_status
+2022-05-25 23:06:50,528 DEBUG   SenderThread:60343 [sender.py:send_request():246] send_request: stop_status
+2022-05-25 23:07:05,699 DEBUG   HandlerThread:60343 [handler.py:handle_request():141] handle_request: stop_status
+2022-05-25 23:07:05,702 DEBUG   SenderThread:60343 [sender.py:send_request():246] send_request: stop_status
