@@ -1,0 +1,4 @@
+torch.Size([9, 4000, 4000])
+Computing RSMs
+torch.Size([3, 64, 64]) torch.Size([4])
+0it [00:00, ?it/s]

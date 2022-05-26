@@ -1,6 +1,10 @@
-*.h5 filter=lfs diff=lfs merge=lfs -text
-*.npy filter=lfs diff=lfs merge=lfs -text
+/data/
 data/overlap_20.npy
 data/3dshapes/3dshapes.h5
 data/base_set.npy
 data/overlap_50.npy
+
+.DS_Store
+
+*.h5
+*.npy
