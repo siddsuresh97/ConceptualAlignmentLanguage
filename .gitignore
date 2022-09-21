@@ -1,8 +1,4 @@
-/data/
-data/overlap_20.npy
-data/3dshapes/3dshapes.h5
-data/base_set.npy
-data/overlap_50.npy
+data/
 
 .DS_Store
 
