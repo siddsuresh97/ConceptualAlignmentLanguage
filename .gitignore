@@ -2,4 +2,4 @@ Gary class project.gslides
 **/__pycache__/
 tripletNCE/wandb
 tripletNCE/data/cifar-10-python.tar.gz
-tripletNCE/data/cifar-10-batches-py
+tripletNCE/data/cifar-10-batches-py   
