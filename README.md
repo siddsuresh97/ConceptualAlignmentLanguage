@@ -7,3 +7,7 @@ How might visual diets influence conceptual alignment?
 
 
 Here is the wandb report of the most recent experiments run :- https://wandb.ai/siddsuresh97/ConceptualAlignmentLangugae/reports/Effect-of-language-on-perceptual-representations--VmlldzoxODU5NTAx?accessToken=ldzn5siore5gvc45192bdwn207m8kgpvt9w54jeyhtvzgbzxdfuo5h57o1zy92bm
+
+
+
+Latest wandb for cogsci25 :- https://wandb.ai/sid-academic-team/ConceptualAlignment2025
