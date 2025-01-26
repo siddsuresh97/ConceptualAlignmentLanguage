@@ -1,6 +1,8 @@
 import os
 import torch
 import pandas as pd
+import multiprocessing as mp
+from itertools import product
 import wandb
 import torch.nn as nn
 import torch.nn.functional as F
@@ -21,8 +23,8 @@ import torch.optim.lr_scheduler as lr_scheduler
 
 import os
 base_dir = os.path.abspath('../..')
-save_dir = os.path.join(base_dir,'results')
-data_dir = os.path.join(base_dir,'data')
+save_dir = os.path.join(base_dir,'results', 'generalization')
+data_dir = os.path.join(base_dir,'data', 'generalization')
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
@@ -302,16 +304,16 @@ def create_training_dataset(data, label_mapping):
         correct_options
     )
 
-set_A_data = pd.read_parquet(os.path.join(data_dir, 'same_diff_train_exact_match_df_a.parquet'))
-set_B_data = pd.read_parquet(os.path.join(data_dir, 'same_diff_train_exact_match_df_b.parquet'))
-set_C_data = pd.read_parquet(os.path.join(data_dir, 'same_diff_train_exact_match_df_c.parquet'))
+# set_A_data = pd.read_parquet(os.path.join(data_dir, 'same_diff_train_exact_match_df_a.parquet'))
+# set_B_data = pd.read_parquet(os.path.join(data_dir, 'same_diff_train_exact_match_df_b.parquet'))
+# set_C_data = pd.read_parquet(os.path.join(data_dir, 'same_diff_train_exact_match_df_c.parquet'))
 # test_data = pd.read_parquet(os.path.join(data_dir, 'same_diff_train_exact_match_df.parquet'))
 
-plt.imshow(set_A_data['test_image'].iloc[0].reshape(64, 128, 3))
+# plt.imshow(set_A_data['test_image'].iloc[0].reshape(64, 128, 3))
 
-def wandb_init(epochs, lr, train_mode, batch_size, model_number, data_set):
+def wandb_init(epochs, lr, train_mode, batch_size, model_number, data_set, exclude):
     wandb.login(key='0743dcb3e6cabcef48bfd9b18017ba1cd0722fd7')
-    wandb.init(project="ConceptualAlignment2025", entity="sid-academic-team", settings=wandb.Settings(start_method="thread"))
+    wandb.init(project="ConceptualAlignment2025ExcludeFinal", entity="sid-academic-team", settings=wandb.Settings(start_method="thread"))
     wandb.config = {
         "learning_rate": lr,
         "epochs": epochs,
@@ -321,96 +323,106 @@ def wandb_init(epochs, lr, train_mode, batch_size, model_number, data_set):
         "train_mode": train_mode,
     }
     train_mode_dict = {0: 'triplet', 1: 'label', 2: 'label_and_triplet'}
-    wandb.run.name = f'{data_set}_{train_mode_dict[train_mode]}_{model_number}'
+    wandb.run.name = f'exclude_{exclude}_{data_set}_{train_mode_dict[train_mode]}_{model_number}'
     wandb.run.save()
 
-def main_code(save_dir, num_models, epochs, num_classes, batch_size, lr_dict, latent_dims):
+def train_single_model(args):
+    data_set, train_mode, num_classes, model, weights_path, lr, epochs, batch_size, save_dir, latent_dims, exclude = args
     if os.path.isdir(save_dir):
         pass
     else:
         os.mkdir(save_dir)
+    weights_path = f'../../data/cifar_models/m{model}.pth'
+    lr =  lr_dict[train_mode]
+    wandb_init(epochs, lr, train_mode, batch_size, model, data_set, exclude)
+    print(f'LR is {lr}')
+    train_data = pd.read_parquet(os.path.join(data_dir, f'same_diff_train_exact_match_df_{data_set}_exclude_{exclude}.parquet'))
+    train_data = create_training_dataset(train_data, label_mapping={'same': 0, 'different': 1})
+    # val_data = create_training_dataset(test_data, label_mapping={'same': 0, 'different': 1})
+    # Let val_data be a subet of train_data (20%)
+    train_data_size = len(train_data)
+    indices = list(range(train_data_size))
+    split = int(np.floor(0.2 * train_data_size))
+    np.random.shuffle(indices)
+    train_idx, val_idx = indices[split:], indices[:split]
 
-    for data_set in ['set_A', 'set_B', 'set_C']:
-        for train_mode in tqdm(range(3)):
-            for model in range(num_models):
-                weights_path = f'../../data/cifar_models/m{model}.pth'
-                lr =  lr_dict[train_mode]
-                wandb_init(epochs, lr, train_mode, batch_size, model, data_set)
-                print(f'LR is {lr}')
-                if data_set == 'set_A':
-                    train_data = create_training_dataset(set_A_data, label_mapping={'same': 0, 'different': 1})
-                elif data_set == 'set_B':
-                    train_data = create_training_dataset(set_B_data, label_mapping={'same': 0, 'different': 1})
-                elif data_set == 'set_C':
-                    train_data = create_training_dataset(set_C_data, label_mapping={'same': 0, 'different': 1})
+    # Create new datasets before DataLoader
+    train_subset = torch.utils.data.Subset(train_data, train_idx)
+    val_subset = torch.utils.data.Subset(train_data, val_idx)
 
-                # val_data = create_training_dataset(test_data, label_mapping={'same': 0, 'different': 1})
-                # Let val_data be a subet of train_data (20%)
-                train_data_size = len(train_data)
-                indices = list(range(train_data_size))
-                split = int(np.floor(0.2 * train_data_size))
-                np.random.shuffle(indices)
-                train_idx, val_idx = indices[split:], indices[:split]
+    # Create DataLoaders
+    train_loader = torch.utils.data.DataLoader(
+        train_subset, 
+        batch_size=batch_size, 
+        shuffle=True
+    )
+    val_loader = torch.utils.data.DataLoader(
+        val_subset, 
+        batch_size=batch_size, 
+        shuffle=True
+    )
 
-                # Create new datasets before DataLoader
-                train_subset = torch.utils.data.Subset(train_data, train_idx)
-                val_subset = torch.utils.data.Subset(train_data, val_idx)
+    # Update variable names
+    train_data = train_loader
+    val_data = val_loader
 
-                # Create DataLoaders
-                train_loader = torch.utils.data.DataLoader(
-                    train_subset, 
-                    batch_size=batch_size, 
-                    shuffle=True
-                )
-                val_loader = torch.utils.data.DataLoader(
-                    val_subset, 
-                    batch_size=batch_size, 
-                    shuffle=True
-                )
+    train_obj = TrainModels(latent_dims, num_classes, weights_path).to(device)
+    optimizer = torch.optim.Adam(train_obj.parameters(), lr=lr, weight_decay=1e-05)
+    
+    # Define scheduler with 10% warm-up epochs and the rest using cosine annealing
+    # warmup_epochs = max(1, int(epochs * 0.1))
+    # scheduler = lr_scheduler.SequentialLR(
+    #     optimizer,
+    #     schedulers=[
+    #         lr_scheduler.LinearLR(optimizer, start_factor=0.1, end_factor=1.0, total_iters=warmup_epochs),
+    #         lr_scheduler.CosineAnnealingLR(optimizer, T_max=epochs - warmup_epochs)
+    #     ],
+    #     milestones=[warmup_epochs]
+    # )
+    scheduler = None
+    train_triplet_losses, train_label_losses, val_triplet_losses, val_label_losses, train_losses, val_losses, train_accuracies, val_accuracies = train_obj.training_loop(
+        train_data=train_data,
+        test_data=val_data,
+        epochs=epochs,
+        optimizer=optimizer,
+        scheduler=scheduler,
+        train_mode=train_mode
+    )
 
-                # Update variable names
-                train_data = train_loader
-                val_data = val_loader
+    print('validation triplet loss:', val_triplet_losses, 'validation total loss:', val_losses, 'validation accuracy:', val_accuracies)
+    train_mode_dict = {0: 'triplet', 1: 'label', 2: 'label_and_triplet'}
+    torch.save(train_obj.triplet_lab_model.state_dict(), os.path.join(save_dir, f'exclude_{exclude}_{model}_{data_set}_{train_mode_dict[train_mode]}.pth'))
+    
+    wandb.finish()  # Finish the current WandB run
 
-                train_obj = TrainModels(latent_dims, num_classes, weights_path).to(device)
-                optimizer = torch.optim.Adam(train_obj.parameters(), lr=lr, weight_decay=1e-05)
-                
-                # Define scheduler with 10% warm-up epochs and the rest using cosine annealing
-                # warmup_epochs = max(1, int(epochs * 0.1))
-                # scheduler = lr_scheduler.SequentialLR(
-                #     optimizer,
-                #     schedulers=[
-                #         lr_scheduler.LinearLR(optimizer, start_factor=0.1, end_factor=1.0, total_iters=warmup_epochs),
-                #         lr_scheduler.CosineAnnealingLR(optimizer, T_max=epochs - warmup_epochs)
-                #     ],
-                #     milestones=[warmup_epochs]
-                # )
-                scheduler = None
-                train_triplet_losses, train_label_losses, val_triplet_losses, val_label_losses, train_losses, val_losses, train_accuracies, val_accuracies = train_obj.training_loop(
-                    train_data=train_data,
-                    test_data=val_data,
-                    epochs=epochs,
-                    optimizer=optimizer,
-                    scheduler=scheduler,
-                    train_mode=train_mode
-                )
+def main_code(save_dir, num_models, epochs, num_classes, batch_size, lr_dict, latent_dims):
+    if not os.path.isdir(save_dir):
+        os.mkdir(save_dir)
 
-                print('validation triplet loss:', val_triplet_losses, 'validation total loss:', val_losses, 'validation accuracy:', val_accuracies)
-                train_mode_dict = {0: 'triplet', 1: 'label', 2: 'label_and_triplet'}
-                torch.save(train_obj.triplet_lab_model.state_dict(), os.path.join(save_dir, f'{model}_{data_set}_{train_mode_dict[train_mode]}.pth'))
-                
-                wandb.finish()  # Finish the current WandB run
+    # Collect all parameter combinations
+    training_args = []
+    for exclude in range(4):
+        for data_set in ['a', 'b', 'c']:
+            for train_mode in range(3):
+                for model in range(num_models):
+                    weights_path = f'../../data/cifar_models/m{model}.pth'
+                    lr = lr_dict[train_mode]
+                    args = (data_set, train_mode, num_classes, model, weights_path, lr, 
+                        epochs, batch_size, save_dir, latent_dims, exclude)
+                    # training_args.append(args)
+                    train_single_model(args)
 
-num_classes = 2
-latent_dims = 64
-epochs = 1000
-lr_dict = {0:0.0005, 1:0.0005, 2:0.0005}
-num_models = 10
-batch_size = 256
-save_dir = save_dir
-main_code(save_dir, num_models, epochs, num_classes, batch_size, lr_dict, latent_dims)
+    # # Run training in parallel
+    # with mp.Pool(processes=20) as pool:
+    #     pool.map(train_single_model, training_args)
 
 
-
-#lr for triplet 0.001 might be too high
-# lr for label 0.001 might be too low
+if __name__ == '__main__':
+    num_classes = 2
+    latent_dims = 64
+    epochs = 400
+    lr_dict = {0:0.0005, 1:0.0005, 2:0.0005}
+    num_models = 5
+    batch_size = 256
+    save_dir = save_dir
+    main_code(save_dir, num_models, epochs, num_classes, batch_size, lr_dict, latent_dims)
